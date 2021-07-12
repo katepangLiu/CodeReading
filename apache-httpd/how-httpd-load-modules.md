@@ -118,3 +118,38 @@ struct module_struct {
 - register_hooks
   - hook 注册函数
 
+
+
+## 查看所有已加载的模块
+
+- httpd -l    preloaded module
+- httpd -L   查看所有 loaded_module 及其支持的指令
+
+
+
+```shell
+[root@pang httpd]# httpd -l
+Compiled in modules:
+  core.c
+  mod_so.c
+  http_core.c
+```
+
+
+
+```shell
+[root@pang httpd]# httpd -L
+...
+exampleEnabled (mod_example_config_simple.c)
+	Enable or disable mod_example
+	Allowed in *.conf only outside <Directory>, <Files>, <Location>, or <If>
+examplePath (mod_example_config_simple.c)
+	The path to whatever
+	Allowed in *.conf only outside <Directory>, <Files>, <Location>, or <If>
+exampleAction (mod_example_config_simple.c)
+	Special action value!
+	Allowed in *.conf only outside <Directory>, <Files>, <Location>, or <If>
+```
+
+
+
