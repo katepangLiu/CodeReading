@@ -15,6 +15,10 @@
     - 定位到module数据结构的地址 `modp`
     - 校验 魔数，判断是否是 module 数据结构
     - 添加 modp 到 core 数据结构中  `ap_add_loaded_module(modp, cmd->pool, modname)`
+      - `ap_add_module(module *m, apr_pool_t *p, const char *sym_name)`
+        - put into map, and get index
+        - `ap_add_module_commands(m, p);`
+        - `ap_register_hooks(m, p);`
     - 注册module实例 清理函数，进程关闭时清理实例。
 
 
@@ -117,6 +121,7 @@ struct module_struct {
   - 模块支持的指令集
 - register_hooks
   - hook 注册函数
+  - 在加载时被调用  `ap_register_hooks`
 
 
 
