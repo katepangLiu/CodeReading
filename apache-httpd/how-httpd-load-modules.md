@@ -11,10 +11,39 @@ Apache httpd server 是一个模块化程序，支持2种形式的模块
   - runtime
 - static module
 
+httpd源码中，static modules 用一个数组定义:
+
+```c
+module *ap_prelinked_modules[] = {
+  &core_module, /* core must come first */
+  &mpm_netware_module,
+  &http_module,
+  &so_module,
+  &mime_module,
+  &authn_core_module,
+  &authz_core_module,
+  &authz_host_module,
+  &negotiation_module,
+  &include_module,
+  &dir_module,
+  &alias_module,
+  &env_module,
+  &log_config_module,
+  &setenvif_module,
+  &watchdog_module,
+#ifdef USE_WINSOCK
+  &nwssl_module,
+#endif
+  &netware_module,
+  NULL
+};
+```
+
+dynamic modules 由 mod_so 模块 负责加载。
+
 ### DSO的加载
 
-DSO的加载主要依赖于 mod_so 模块，mod_so 必须以静态形式编译进 httpd core，也是httpd core中唯一一个 必须以静态形式编译的模块(因为它的任务就是加载DSO的)。
-在工程实践中，其他模块一般都已 DSO形式发布。
+DSO的加载主要依赖于 mod_so 模块，mod_so 必须以静态形式编译进 httpd core。
 
 **加载步骤**：
 
@@ -338,3 +367,4 @@ exampleAction (mod_example_config_simple.c)
 https://httpd.apache.org/docs/2.4/dso.html
 
 https://httpd.apache.org/docs/2.4/mod/mod_so.html
+
