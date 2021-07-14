@@ -2,12 +2,13 @@
 
 ## Overview
 
-apache 提供了2个维度的 hook,  实现 事件通知，回调相应的handler
+apache 提供了3个维度的 hook,  实现 事件通知，回调相应的handler
 
 - **ap_run_xxx  将触发 所有  注册了 ap_hook_xxx 的 handler**
 - **proxy_run_xxx 将触发 所有 注册了 proxy_hook_xxx 的 handler**
 
 proxy_run_xxx 用于 mod_proxy 及其子模块之间的事件通知，
+
 其他的场景下均使用 ap_run_xxx 来实现。
 
 
@@ -284,8 +285,8 @@ cleanup:
 ```
 
 - Determine Who To Connect To
-- Determine Who To Connect To
   - (Re)Determine Who To Connect To
+- Make the Connection
 - Create conn_rec
 - Send the Request
 - Receive the Response... Fall thru to cleanup
