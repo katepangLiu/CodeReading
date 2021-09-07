@@ -65,7 +65,7 @@ Apache 的配置大体可以分三部分：
 - Translate Request URL  (mod_rewrite)
 - Directory walk beginning from root (/), applying .htaccess files (directory_walk)
 - File walk
--  Location walk, in case Request URI has been changed
+-  Location walk again, in case Request URI has been changed
 
 ## 示例
 

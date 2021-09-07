@@ -10,8 +10,8 @@
 
 
 
-- Server core  通过module注册的信息, 调用其 handler
-- modules 通过 Server core 暴露的接口，访问关键的数据结构，完成业务逻辑
+- Server core  调用 modules 注册的handler，串联整个业务周期。
+- modules 调用 Server core 暴露的接口，访问关键的数据结构，完成业务逻辑。
 
 ## Handlers
 
@@ -25,10 +25,21 @@ module可以提供多种形式的handler：
 ### handlers for hook
 
 调用方通过执行 ap_run_HookName 调用handlers
+
+- caller
+  - APR_HOOK_LINK( hookname )
+  - ap_run_hookname()
+- handler
+  - ap_hook_hookname(handler)
+
 调用方式有2种：
 
-- RUN_ALL/VOID  依次执行所有的handler；直到发生错误
-- RUN_FIRST          依次执行，只要有handler一个处理完成，后续的不再执行
+- AP_IMPLEMENT_HOOK_RUN_FIRST   (执行到一个handler成功，结束)
+  - 一般情况下，所有的handler都会根据入参，自行判断自己是否应该处理，
+  - 不处理则直接返回 DECLINE，避免影响真正需要处理的模块
+- AP_IMPLEMENT_HOOK_RUN_ALL      (执行所有的handler)
+
+
 
 **任何模块都可以定义 hook 供其他模块注册handler**
 
@@ -36,7 +47,7 @@ module可以提供多种形式的handler：
 
 ### handlers for Config Directives
 
-定义模块到某一个配置指令的处理函数
+定义模块对某一个配置指令的处理函数
 
 
 
